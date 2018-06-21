@@ -135,6 +135,7 @@ EOS
   - AWS::CodeBuild::*
   - AWS::CodeCommit::*
   - AWS::CodeDeploy::*
+  - AWS::Cognito::*
   - AWS::DataPipeline::*
   - AWS::DynamoDB::*
   - AWS::EC2::*

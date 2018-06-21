@@ -7,6 +7,7 @@ require 'kumogata/template/autoscaling'
 
 name = _resource_name(args[:name], "autoscaling scheduled action")
 autoscaling = _ref_string("autoscaling", args, "autoscaling group")
+# FIXME
 autoscaling = _ref_resource_name(args, "autoscaling group") if autoscaling.empty?
 desired = _integer("desired", args, -1)
 end_time =

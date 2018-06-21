@@ -6,17 +6,17 @@ require 'kumogata/template/helper'
 require 'kumogata/template/ec2'
 
 name = _resource_name(args[:name], "security group")
-group_name = _real_name("group", args)
+group = _name("group", args)
 description = args[:description] || "#{args[:name]} security group description"
 egress = _ec2_security_group_egress_rules("egress", args)
 ingress = _ec2_security_group_ingress_rules("ingress", args)
-tags = _tags(args)
+tags = _tags(args, 'group')
 vpc = _ref_string("vpc", args, "vpc")
 
 _(name) do
   Type "AWS::EC2::SecurityGroup"
   Properties do
-    GroupName group_name if group_name
+    GroupName group
     GroupDescription description
     SecurityGroupEgress egress unless egress.empty?
     SecurityGroupIngress ingress unless ingress.empty?

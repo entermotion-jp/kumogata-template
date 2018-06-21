@@ -24,9 +24,7 @@ _rds_db_instance "test", ref_db_name: "test", ref_port: "test", ref_subnet_group
             {
               "Ref": "Service"
             },
-            {
-              "Ref": "Name"
-            }
+            "test"
           ]
         ]
       },

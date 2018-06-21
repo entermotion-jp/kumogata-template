@@ -6,7 +6,7 @@ require 'kumogata/template/helper'
 require 'kumogata/template/logs'
 
 name = _resource_name(args[:name], "logs log group")
-group = _ref_name("group", args)
+group = _name("group", args)
 rentention = args[:rentention] || 365
 
 _(name) do
@@ -16,3 +16,4 @@ _(name) do
     RetentionInDays rentention
   end
 end
+
