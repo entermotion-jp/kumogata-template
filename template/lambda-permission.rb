@@ -6,11 +6,11 @@ require 'kumogata/template/helper'
 require 'kumogata/template/iam'
 
 name = _resource_name(args[:name], "lambda permission")
-action = args[:action] || "lambda:*"
+action = args[:action] || 'invoke function'
 function = _ref_attr_string("function", "Arn", args, "lambda function", 'arn')
 principal = args[:principal]
 source_account = _ref_string("source_account", args, "account id")
-source_account = _ref_pseudo('account id') if source_account.empty?
+source_account = _ref_pseudo('account id') if source_account.empty? and principal == 's3'
 source_arn_prefix =
   case principal
   when 's3'
@@ -19,6 +19,7 @@ source_arn_prefix =
     'topic'
   when 'events'
     'events rule'
+    # TBD
   else
     ''
   end
@@ -36,7 +37,7 @@ depends = _depends([ { ref_function: 'lambda function' } ], args)
 _(name) do
   Type "AWS::Lambda::Permission"
   Properties do
-    Action action
+    Action "lambda:#{_capitalize(action)}"
     FunctionName function
     Principal "#{principal}.#{DOMAIN}"
     SourceAccount source_account unless source_account.empty?
