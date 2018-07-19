@@ -19,11 +19,13 @@ end
 
 def _events_targets(args)
   (args[:targets] || []).collect do |target|
+    role = _ref_attr_string("role", "Arn", target, "role")
     _{
       Arn _ref_attr_string("arn", "Arn", target)
       Id target[:id]
       Input target[:input] if target.key? :input
       InputPath target[:path] if target.key? :path
+      RoleArn role unless role.empty?
     }
   end
 end
