@@ -26,6 +26,10 @@ def _events_targets(args)
       Input target[:input] if target.key? :input
       InputPath target[:path] if target.key? :path
       RoleArn role unless role.empty?
+      EcsParameters _{
+        TaskCount target[:ecs_parameters][:task_count] if target[:ecs_parameters].key? :task_count
+        TaskDefinitionArn _ref_string("task_definition", target[:ecs_parameters], "ecs task definition", "arn")
+      } if target.key? :ecs_parameters
     }
   end
 end
